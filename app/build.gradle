@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    namespace 'com.risenid.huskyspoof'
+    namespace 'com.risenid.caimanspoof'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.risenid.huskyspoof"
+        applicationId "com.risenid.caimanspoof"
         minSdk 29
         targetSdk 34
-        versionCode 3
-        versionName "3.0"
+        versionCode 1
+        versionName "1.0"
     }
 
     buildTypes {
