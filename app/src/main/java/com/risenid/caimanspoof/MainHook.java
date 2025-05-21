@@ -33,7 +33,7 @@ public class MainHook implements IXposedHookLoadPackage {
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {        
         XposedBridge.log("caimanSpoof: Hooking into: " + lpparam.packageName);
 
-        if (!lpparam.packageName.equals("com.google.android.gms") || lpparam.processName.equals("com.google.android.gms.unstable")) {
+        if (lpparam.processName.equals("com.google.android.gms.unstable")) {
             // ro.product.manufacturer
             XposedHelpers.setStaticObjectField(Build.class, "MANUFACTURER", "Google");
 
@@ -55,6 +55,9 @@ public class MainHook implements IXposedHookLoadPackage {
             // ro.model.model
             XposedHelpers.setStaticObjectField(Build.class, "MODEL", "Pixel 9a");
 
+            // ro.product.system.model
+            XposedHelpers.setStaticObjectField(Build.class, "SYSTEM.MODEL", "mainline");
+
             // ro.build.id
             XposedHelpers.setStaticObjectField(Build.class, "ID", "BP31.250502.008");
 
@@ -68,7 +71,7 @@ public class MainHook implements IXposedHookLoadPackage {
 
         if (lpparam.packageName.equals("com.android.vending")) {
             // SDK_INT
-            XposedHelpers.setStaticIntField(Build.VERSION.class, "SDK_INT", 32);
+            XposedHelpers.setStaticObjectField(Build.VERSION.class, "SDK_INT", 32);
         }
     }
 }
