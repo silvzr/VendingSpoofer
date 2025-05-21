@@ -33,9 +33,38 @@ public class MainHook implements IXposedHookLoadPackage {
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {        
         XposedBridge.log("caimanSpoof: Hooking into: " + lpparam.packageName);
 
-        // ro.build.fingerprint
-        XposedHelpers.setStaticObjectField(Build.class, "FINGERPRINT",
+        if (!lpparam.packageName.equals("com.google.android.gms") || lpparam.processName.equals("com.google.android.gms.unstable")) {
+            // ro.product.manufacturer
+            XposedHelpers.setStaticObjectField(Build.class, "MANUFACTURER", "Google");
+
+            // ro.product.brand
+            XposedHelpers.setStaticObjectField(Build.class, "BRAND", "google");
+
+            // ro.product.device
+            XposedHelpers.setStaticObjectField(Build.class, "DEVICE", "tegu");
+
+            // ro.build.tags
+            XposedHelpers.setStaticObjectField(Build.class, "TAGS", "release-keys");
+
+            // ro.build.type
+            XposedHelpers.setStaticObjectField(Build.class, "TYPE", "user");
+
+            // ro.product.product
+            XposedHelpers.setStaticObjectField(Build.class, "PRODUCT", "tegu");
+
+            // ro.model.model
+            XposedHelpers.setStaticObjectField(Build.class, "MODEL", "Pixel 9a");
+
+            // ro.build.id
+            XposedHelpers.setStaticObjectField(Build.class, "ID", "BP31.250502.008");
+
+            // ro.build.fingerprint
+            XposedHelpers.setStaticObjectField(Build.class, "FINGERPRINT",
                 "google/tegu_beta/tegu:16/BP31.250502.008/13497110:user/release-keys");
+
+            // ro.security.patch
+            XposedHelpers.setStaticObjectField(Build.VERSION.class, "SECURITY_PATCH", "2025-05-05");
+        }
 
         if (lpparam.packageName.equals("com.android.vending")) {
             // SDK_INT
