@@ -1,21 +1,36 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# ProGuard rules for an Xposed module
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Keep attributes for debugging and annotations
+-keepattributes Signature,InnerClasses,EnclosingMethod,*Annotation*,SourceFile,LineNumberTable
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep Xposed framework classes and interfaces themselves, just in case.
+-keep class de.robv.android.xposed.** { *; }
+-keep interface de.robv.android.xposed.** { *; }
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Keep classes that implement Xposed interfaces
+-keep public class * implements de.robv.android.xposed.IXposedMod
+-keep public class * implements de.robv.android.xposed.IXposedHookLoadPackage
+-keep public class * implements de.robv.android.xposed.IXposedHookZygoteInit
+-keep public class * implements de.robv.android.xposed.IXposedHookCmdInit
+-keep public class * implements de.robv.android.xposed.IXposedHookInitPackageResources
+
+# Keep members of classes that implement Xposed interfaces (including constructors and methods)
+-keepclassmembers public class * implements de.robv.android.xposed.IXposedMod { <init>(...); *; }
+-keepclassmembers public class * implements de.robv.android.xposed.IXposedHookLoadPackage { <init>(...); *; }
+-keepclassmembers public class * implements de.robv.android.xposed.IXposedHookZygoteInit { <init>(...); *; }
+-keepclassmembers public class * implements de.robv.android.xposed.IXposedHookCmdInit { <init>(...); *; }
+-keepclassmembers public class * implements de.robv.android.xposed.IXposedHookInitPackageResources { <init>(...); *; }
+
+# The main hook class (com.risenid.caimanspoof.MainHook) and its members
+# should be covered by the IXposedHookLoadPackage rules above.
+# -keep public class com.risenid.caimanspoof.MainHook { <init>(...); *; } # Removed this explicit rule
+
+# The xposed_init file is automatically included without ProGuard directives.
+#-keepresourcefiles assets/xposed_init # removed due to R8 parsing issue
+
+# Optional: Prevent warnings about Xposed classes if they occur.
+-dontwarn de.robv.android.xposed.**
+
+# Add any project specific ProGuard rules below if needed.
+# For example, if you use reflection on other classes:
+# -keep class com.example.MyClass { *; }
