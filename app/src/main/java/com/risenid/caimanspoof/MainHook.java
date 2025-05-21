@@ -33,74 +33,13 @@ public class MainHook implements IXposedHookLoadPackage {
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {        
         XposedBridge.log("caimanSpoof: Hooking into: " + lpparam.packageName);
 
-        // ro.product.manufacturer
-        XposedHelpers.setStaticObjectField(Build.class, "MANUFACTURER", "Google");
-
-        // ro.product.brand
-        XposedHelpers.setStaticObjectField(Build.class, "BRAND", "google");
-
-        // ro.product.device
-        XposedHelpers.setStaticObjectField(Build.class, "DEVICE", "caiman");
-
-        // ro.product.system.device
-        XposedHelpers.setStaticObjectField(Build.class, "SYSTEM.DEVICE", "generic");
-
-        // ro.build.tags
-        XposedHelpers.setStaticObjectField(Build.class, "TAGS", "release-keys");
-
-        // ro.build.type
-        XposedHelpers.setStaticObjectField(Build.class, "TYPE", "user");
-
-        // ro.product.product
-        XposedHelpers.setStaticObjectField(Build.class, "PRODUCT", "caiman");
-
-        // ro.product.name
-        XposedHelpers.setStaticObjectField(Build.class, "name", "caiman");
-
-        // ro.product.system.name
-        XposedHelpers.setStaticObjectField(Build.class, "name", "caiman");
-
-        // ro.product.vendor.name
-        XposedHelpers.setStaticObjectField(Build.class, "name", "caiman");
-
-        // ro.product.system_ext.name
-        XposedHelpers.setStaticObjectField(Build.class, "name", "caiman");
-
-        // ro.product.system.name
-        XposedHelpers.setStaticObjectField(Build.class, "SYSTEM.NAME", "mainline");
-
-        // ro.product.vendor.name
-        XposedHelpers.setStaticObjectField(Build.class, "VENDOR.NAME", "caiman");
-
-        // ro.product.system_ext.name
-        XposedHelpers.setStaticObjectField(Build.class, "SYSTEM_EXT.NAME", "caiman");
-
-        // ro.system_ext.model
-        XposedHelpers.setStaticObjectField(Build.class, "SYSTEM_EXT.MODEL", "Pixel 8 Pro");
-
-        // ro.product.model
-        XposedHelpers.setStaticObjectField(Build.class, "PRODUCT.MODEL", "Pixel 9 Pro");
-
-        // ro.product.vendor.model
-        XposedHelpers.setStaticObjectField(Build.class, "VENDOR.MODEL", "Pixel 9 Pro");
-
-        // ro.product.system.model
-        XposedHelpers.setStaticObjectField(Build.class, "SYSTEM.MODEL", "mainline");
-
-        // ro.product.flavor
-        XposedHelpers.setStaticObjectField(Build.class, "FLAVOUR", "caiman-user");
-
-        // ro.soc.model
-        XposedHelpers.setStaticObjectField(Build.class, "SOC.MODEL", "Tensor G4");
-
-        // ro.product.board
-        XposedHelpers.setStaticObjectField(Build.class, "BOARD", "caiman");
-
-        // ro.build.id
-        XposedHelpers.setStaticObjectField(Build.class, "ID", "AD1A.240530.047.U1");
-
         // ro.build.fingerprint
         XposedHelpers.setStaticObjectField(Build.class, "FINGERPRINT",
-                "google/caiman/caiman:14/AD1A.240530.047.U1/12150698:user/release-keys");
+                "google/tegu_beta/tegu:16/BP31.250502.008/13497110:user/release-keys");
+
+        if (lpparam.packageName.equals("com.android.vending")) {
+            // SDK_INT
+            XposedHelpers.setStaticIntField(Build.VERSION.class, "SDK_INT", 32);
+        }
     }
 }
