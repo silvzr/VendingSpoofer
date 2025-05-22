@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.risenid.caimanspoof;
+package xyz.vending.spoofer;
 
 import android.os.Build;
 
@@ -31,7 +31,7 @@ public class MainHook implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {        
-        XposedBridge.log("caimanSpoof: Hooking into: " + lpparam.packageName);
+        XposedBridge.log("VendingSpoofer: Hooking into: " + lpparam.packageName);
 
         XposedHelpers.setStaticIntField(Build.VERSION.class, "SDK_INT", 32);
         return;
